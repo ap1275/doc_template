@@ -1,0 +1,63 @@
+#!usr/bin/env ruby
+
+require './.doc_helper'
+
+################################################################################
+title = ""
+
+created = "2018-01-01T23:12:34+0900" # ISO 8601 format
+
+author = [
+	{
+		"name": {
+			"mail": "hoge@mail.com",
+			"univ": "hoge hoge university",
+		}
+	},
+	{
+		"2nd author": {
+			"mail": "hoge@mail.com",
+			"univ": "hoge hoge university",
+		}
+	},
+]
+
+tag = [
+]
+
+# media adds base64 encoded data automatically
+# sample below works like
+# {"media_tag_name":
+#  {
+#   "path": "./sample.txt",
+#   "data": "SEVMTE8gV09STEQK"
+#  }
+# }
+#
+media = [
+	{"media_tag_name": {"path": "./sample.txt"}} # media = [ {"tag": {"path": "string"(, "additional": "something")}} ]
+]
+
+ref = [
+	{"sample_tag_name": "wikipedia,2018,https://ja.wikipedia.org/ry"} # ref = [ {"tag": "string"} ]
+]
+
+quota = [
+
+]
+
+abstract =
+<<EOS
+this is abstract.
+EOS
+
+body =
+<<EOS
+Michael Jackson [#{of ref, :"sample_tag_name"}]
+media [#{at media, :"media_tag_name", :"path"}]
+gop >> #{at ref, :"sample_tag_name"}
+media insert >> #{insert media, :"media_tag_name"}
+EOS
+################################################################################
+
+output title, created, author, tag, media, ref, quota, abstract, body
